@@ -1,32 +1,291 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow">
+
   <title>Korn Tracker</title>
+
+  <link rel="icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/icon-180.png">
+
+  <meta name="description"
+        content="View and explore Korn's released and unreleased discography, demos, rarities and music leaks on Korn Tracker.">
+
+  <meta name="author" content="Korn Tracker">
+  <meta name="application-name" content="Korn Tracker">
+
+  <meta name="theme-color" content="#111111">
+  <meta name="color-scheme" content="dark light">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Korn Tracker">
+  <meta property="og:title" content="Korn Tracker">
+  <meta property="og:description"
+        content="Explore Korn's released and unreleased discography, demos, rarities and leaks.">
+  <meta property="og:image" content="/og-card.png">
+  <meta property="og:image:alt" content="Korn Tracker">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Korn Tracker">
+  <meta name="twitter:description"
+        content="Explore Korn's released and unreleased discography, demos, rarities and leaks.">
+  <meta name="twitter:image" content="/og-card.png">
+
   <style>
     * {
-      margin: 0;
-      padding: 0;
       box-sizing: border-box;
     }
-    html, body {
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
       width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background-color: #ffffff;
+      min-height: 100%;
+      background: #111;
+      color: #fff;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Helvetica,
+        Arial,
+        sans-serif;
     }
-    iframe {
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #top-bar {
+      background: #111;
+      border-bottom: 1px solid #333;
+      padding: 14px 18px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    #doc-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+
+    #sheet-menu {
+      margin: 12px 0 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      list-style: none;
+    }
+
+    #sheet-menu li {
+      margin: 0;
+      padding: 0;
+    }
+
+    #sheet-menu a {
+      display: block;
+      padding: 7px 11px;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #bbb;
+      background: #181818;
+      text-decoration: none;
+      font-size: 13px;
+      transition: .15s ease;
+    }
+
+    #sheet-menu a:hover,
+    #sheet-menu a.active {
+      color: #fff;
+      background: #292929;
+      border-color: #555;
+    }
+
+    #sheets-viewport {
+      flex: 1;
+      width: 100%;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    #sheets-viewport iframe {
+      display: block;
       width: 100%;
       height: 100%;
+      min-height: calc(100vh - 100px);
       border: 0;
+      background: #fff;
+    }
+
+    @media (max-width: 600px) {
+      #top-bar {
+        padding: 11px;
+      }
+
+      #doc-title {
+        font-size: 16px;
+      }
+
+      #sheet-menu {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 2px;
+      }
+
+      #sheet-menu a {
+        white-space: nowrap;
+      }
     }
   </style>
 </head>
+
 <body>
 
-  <!-- Aldığınız yayınlanmış pubhtml bağlantısı -->
-  <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSH7kC5MiOHk8xLOKiDfcz6e7tNV4yXtYtDKw8U9QqpnbJJYKvAzuG_V6l_M6IeHQ-aoh7bY5ey8ZwX/pubhtml?widget=true&amp;headers=false"></iframe>
+  <header id="top-bar">
+    <div id="doc-title">Korn Tracker</div>
+
+    <nav>
+      <ul id="sheet-menu">
+        <li>
+          <a href="#" data-sheet="unreleased" class="active">
+            Unreleased
+          </a>
+        </li>
+
+        <li>
+          <a href="#" data-sheet="released">
+            Released
+          </a>
+        </li>
+
+        <li>
+          <a href="#" data-sheet="recent">
+            Recent
+          </a>
+        </li>
+
+        <li>
+          <a href="#" data-sheet="best-of">
+            Best Of / Grail / Special / Worst Of
+          </a>
+        </li>
+
+        <li>
+          <a href="#" data-sheet="tracklists">
+            Tracklists
+          </a>
+        </li>
+
+        <li>
+          <a href="#" data-sheet="stems">
+            Stems
+          </a>
+        </li>
+
+        <li>
+          <a href="#" data-sheet="covers">
+            Covers
+          </a>
+        </li>
+
+        <li>
+          <a href="#" data-sheet="misc">
+            Misc
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="sheets-viewport">
+    <iframe
+      id="sheet-frame"
+      title="Korn Tracker">
+    </iframe>
+  </main>
+
+  <script>
+    /*
+      yeni korn tracker sheet adresini buraya koy.
+
+      örnek:
+      const SHEET_BASE_URL =
+        "https://docs.google.com/spreadsheets/d/XXXXXXXXXXXXXXXX";
+    */
+
+    const SHEET_BASE_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTi0PbNHK_cfJ87qOgzy1DUTv09en1OE0iIKnDAV1bLL8N-eF9vAemwYD3eEH0_ZXSlVXEcocrqjtei/pubhtml";
+
+    const sheets = {
+      unreleased: "554276433",
+      released: "2075464323",
+      recent: "879105978",
+      "best-of": "542891738",
+      tracklists: "834650871",
+      stems: "458097365",
+      covers: "1776294041",
+      misc: "1801055011"
+    };
+
+    const menuLinks = document.querySelectorAll(
+      "#sheet-menu a[data-sheet]"
+    );
+
+    const frame = document.getElementById("sheet-frame");
+
+    function loadSheet(name) {
+      const gid = sheets[name];
+
+      if (!gid) return;
+
+      /*
+        google sheets'in sadece görüntüleme sayfasını kullanıyoruz.
+        google docs'un bütün gereksiz javascript/css altyapısını
+        artık bu sayfaya taşımıyoruz.
+      */
+
+      frame.src =
+        `${SHEET_BASE_URL}/htmlview/sheet/${gid}.html`;
+
+      menuLinks.forEach(link => {
+        link.classList.toggle(
+          "active",
+          link.dataset.sheet === name
+        );
+      });
+
+      history.replaceState(
+        null,
+        "",
+        `#${name}`
+      );
+    }
+
+    menuLinks.forEach(link => {
+      link.addEventListener("click", event => {
+        event.preventDefault();
+        loadSheet(link.dataset.sheet);
+      });
+    });
+
+    const initialSheet =
+      location.hash.replace("#", "");
+
+    loadSheet(
+      sheets[initialSheet]
+        ? initialSheet
+        : "unreleased"
+    );
+  </script>
 
 </body>
 </html>
