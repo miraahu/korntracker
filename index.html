@@ -17,16 +17,17 @@
       background-color: #ffffff;
     }
     iframe {
-      width: 100%;
-      height: 100%;
+      width: 125%; /* Ekranı biraz genişletip zoom ile içeriği büyütür */
+      height: 125%;
       border: 0;
+      transform: scale(0.8); /* Yakınlaştırma oranını buradan ayarlayabilirsiniz */
+      transform-origin: 0 0;
     }
   </style>
 </head>
 <body>
 
-  <!-- widget=true yapılarak alt sekmeler (butonlar) geri getirildi -->
-  <iframe src="https://docs.google.com/spreadsheets/d/1pbxb9vsk4JWwsaSyxwk970-O5uP8qwVXx2FsAJ0Crpo/htmlembed?widget=true&amp;chrome=false"></iframe>
+  <iframe src="https://docs.google.com/spreadsheets/d/1pbxb9vsk4JWwsaSyxwk970-O5uP8qwVXx2FsAJ0Crpo/pubhtml?widget=true&amp;headers=false"></iframe>
 
 </body>
 </html>
